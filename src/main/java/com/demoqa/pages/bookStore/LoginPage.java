@@ -17,8 +17,8 @@ public class LoginPage extends BasePage {
 
     public LoginPage enterUserData(String userName, String password) {
 
-        typeWithJS(userNameInput,userName,0,300);
-        typeWithJS(userPasswordInput,password,0,300);
+        typeWithJS(userNameInput,userName,0,200);
+        typeWithJS(userPasswordInput,password,0,200);
 
         return this;
     }

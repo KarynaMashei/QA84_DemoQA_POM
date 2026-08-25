@@ -26,4 +26,12 @@ public class HomePage extends BasePage {
         clickWithJS(alertsWindows,0,300);
         return new SidePanel(driver);
     }
+
+    @FindBy(css = "a[href$='/widgets']")
+    WebElement widgets;
+
+    public SidePanel getWidgets() {
+        click(widgets);
+        return new SidePanel(driver);
+    }
 }

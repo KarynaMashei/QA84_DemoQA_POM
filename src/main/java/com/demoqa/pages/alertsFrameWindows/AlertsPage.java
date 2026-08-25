@@ -36,4 +36,28 @@ public class AlertsPage extends BasePage {
         return this;
     }
 
+    @FindBy(id = "promtButton")
+    WebElement promptButton;
+
+    public AlertsPage clickOnPromptButton() {
+        clickWithJS(promptButton,0,300);
+        return this;
+    }
+
+    public AlertsPage sendMessageToAlert(String message) {
+        if (message != null){
+            driver.switchTo().alert().sendKeys(message);
+            driver.switchTo().alert().accept();
+        }
+        return this;
+    }
+
+    @FindBy(id = "promptResult")
+    WebElement promptResult;
+
+    public AlertsPage verifyMessage(String text) {
+        Assertions.assertTrue(isContainsText(text,promptResult));
+        return this;
+    }
+
 }
