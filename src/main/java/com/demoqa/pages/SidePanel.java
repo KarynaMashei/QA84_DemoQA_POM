@@ -6,6 +6,8 @@ import com.demoqa.pages.alertsFrameWindows.FramesPage;
 import com.demoqa.pages.alertsFrameWindows.NestedFramesPage;
 import com.demoqa.pages.alertsFrameWindows.WindowsPage;
 import com.demoqa.pages.bookStore.LoginPage;
+import com.demoqa.pages.elements.ButtonPage;
+import com.demoqa.pages.elements.TextBoxPage;
 import com.demoqa.pages.widgets.MenuPage;
 import com.demoqa.pages.widgets.SelectPage;
 import com.demoqa.pages.widgets.SliderPage;
@@ -86,5 +88,21 @@ public class SidePanel extends BasePage {
     public ToolTipsPage getToolTips() {
         clickWithJS(toolTips,0,200);
         return new ToolTipsPage(driver);
+    }
+
+    @FindBy(css = "a[href='/buttons']")
+    WebElement buttons;
+
+    public ButtonPage getButtons() {
+        clickWithJS(buttons,0,400);
+        return new ButtonPage(driver);
+    }
+
+    @FindBy(css = "a[href='/text-box']")
+    WebElement textBox;
+
+    public TextBoxPage getTextBox() {
+        clickWithJS(textBox,0,0);
+        return new TextBoxPage(driver);
     }
 }

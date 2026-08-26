@@ -27,22 +27,35 @@ public abstract class BasePage {
         js.executeScript("window.scrollBy(" + x + "," + y + ")");
     }
 
+    public void scrollToElement(WebElement element) {
+        js.executeScript(
+                "arguments[0].scrollIntoView({block: 'center', inline: 'center'});",
+                element
+        );
+    }
+
     public void clickWithJS(WebElement element, int x, int y) {
         scrollWithJS(x, y);
         js.executeScript("arguments[0].click();", element);
     }
 
     public void typeWithJS(WebElement element, String text, int x, int y) {
-        scrollWithJS(x, y);
-        type(element, text);
+        if (text != null) {
+            scrollToElement(element);
+            js.executeScript("arguments[0].focus();", element);
+            element.clear();
+            element.sendKeys(text);
+        }
     }
 
     public void click(WebElement element) {
-        js.executeScript(
-                "arguments[0].scrollIntoView({block: 'center', inline: 'nearest'});",
-                element
-        );
-        getWait(5).until(ExpectedConditions.elementToBeClickable(element)).click();
+        scrollToElement(element);
+        try {
+            getWait(5).until(ExpectedConditions.elementToBeClickable(element)).click();
+        } catch (ElementClickInterceptedException e) {
+            scrollToElement(element);
+            js.executeScript("arguments[0].click();", element);
+        }
     }
 
     public void type(WebElement element, String text) {
