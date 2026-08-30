@@ -61,4 +61,46 @@ public class TextBoxPage extends BasePage {
         typeWithJS(permanentAddress,address,0,300);
         return this;
     }
+
+    public TextBoxPage enterPersonalDataWithJS(String name, String email) {
+        js.executeScript("arguments[0].value=arguments[1];",userName,name);
+        js.executeScript("arguments[0].value=arguments[1];",userEmail,email);
+        return this;
+    }
+
+    public TextBoxPage clickOnSubmitWithJS() {
+        js.executeScript("arguments[0].click();",submit);
+        js.executeScript("arguments[0].style.backgroundColor='red';",submit);
+        return this;
+    }
+
+    public TextBoxPage getInnerText() {
+        String innerText = js.executeScript(
+                "return document.documentElement.innerText;"
+        ).toString();
+        System.out.println(innerText);
+        return this;
+    }
+
+    public TextBoxPage verifyUrl() {
+        String url = js.executeScript("return document.URL;").toString();
+        Assertions.assertTrue(url.contains("demoqa.com/text-box"));
+        return this;
+    }
+
+    public TextBoxPage refreshWithJS() {
+        js.executeScript("history.go(0);");
+        return this;
+    }
+
+    public TextBoxPage navigateWithJS(String url) {
+        js.executeScript("window.location=arguments[0];",url);
+        return this;
+    }
+
+    public TextBoxPage verifyTitleIsNotEmpty() {
+        String title = js.executeScript("return document.title;").toString();
+        Assertions.assertFalse(title.isBlank());
+        return this;
+    }
 }

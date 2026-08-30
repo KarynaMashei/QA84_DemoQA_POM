@@ -7,6 +7,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.net.HttpURLConnection;
+import java.net.URI;
 import java.time.Duration;
 
 public abstract class BasePage {
@@ -113,5 +115,49 @@ public abstract class BasePage {
 
     public void waitIsElementVisibility(WebElement element, int time) {
         getWait(time).until(ExpectedConditions.visibilityOf(element));
+    }
+
+    public int getStatusCode(String url) {
+        if (url == null || url.isBlank()) {
+            return -1;
+        }
+        try {
+            HttpURLConnection connection = (HttpURLConnection) URI.create(url)
+                    .toURL()
+                    .openConnection();
+            connection.setConnectTimeout(5000);
+            connection.setReadTimeout(5000);
+            connection.connect();
+            return connection.getResponseCode();
+        } catch (Exception e) {
+            return -1;
+        }
+    }
+
+    public void verifyLinks(String url) {
+        int statusCode = getStatusCode(url);
+        softly.assertThat(statusCode)
+                .as("Response code for " + url)
+                .isBetween(200,399);
+    }
+
+    public void clickWithRectangle(WebElement element) {
+        scrollToElement(element);
+        Rectangle rectangle = element.getRect();
+        int xOffset = rectangle.getWidth() / 4;
+        int yOffset = rectangle.getHeight() / 4;
+        actions.moveToElement(element)
+                .moveByOffset(-xOffset,-yOffset)
+                .click()
+                .perform();
+    }
+
+    public void pause(int millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new RuntimeException(e);
+        }
     }
 }
