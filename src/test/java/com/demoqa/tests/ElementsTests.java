@@ -9,6 +9,7 @@ import com.demoqa.pages.elements.TextBoxPage;
 import com.demoqa.pages.elements.UploadPage;
 import com.demoqa.utils.MyArgumentsProvider;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
@@ -88,6 +89,7 @@ public class ElementsTests extends TestBase {
     }
 
     @Test
+    @Tag("smoky")
     public void getAllLinksTest() {
         sidePanel.getBrokenLinkImages();
         brokenLinks.getAllLinks();
