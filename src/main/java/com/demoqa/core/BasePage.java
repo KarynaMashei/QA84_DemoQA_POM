@@ -152,12 +152,4 @@ public abstract class BasePage {
                 .perform();
     }
 
-    public void pause(int millis) {
-        try {
-            Thread.sleep(millis);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
-        }
-    }
 }

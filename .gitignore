@@ -1,9 +1,10 @@
 target/
 /src/test_logs/
 /screenshots/
+out/
 
 ### IntelliJ IDEA ###
-*.idea
+.idea/
 *.iws
 *.iml
 *.ipr
@@ -11,3 +12,6 @@ target/
 ### Windows ###
 Thumbs.db
 desktop.ini
+
+### macOS ###
+.DS_Store

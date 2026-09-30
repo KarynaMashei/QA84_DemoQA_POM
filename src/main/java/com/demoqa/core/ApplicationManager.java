@@ -10,7 +10,6 @@ import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.events.EventFiringDecorator;
 import org.openqa.selenium.support.events.WebDriverListener;
 
-import java.time.Duration;
 import java.util.Locale;
 
 public class ApplicationManager {
@@ -49,7 +48,6 @@ public class ApplicationManager {
 
         driver.get("https://demoqa.com");
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
         return driver;
     }
 
